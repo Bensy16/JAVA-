@@ -1,0 +1,111 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("======================================");
+        System.out.println("STUDENT PERFORMANCE MONITORING SYSTEM");
+        System.out.println("======================================");
+        
+        // 1. Removed the stray "while(true);" that caused an infinite loop
+        
+        String name = "";
+        int age = 0;
+        double HCI = 0;
+        double CC103 = 0;
+        double NET2 = 0;
+        double average;
+        double total;
+        
+        // 2. Fixed Name Input: Removed duplicate 'String' declaration & added proper loop
+        do {
+            System.out.print("Enter your name: ");
+            name = scanner.nextLine().trim();
+            if (name.isEmpty()) {
+                System.out.println("Name cannot be empty.");
+            }
+        } while (name.isEmpty());
+        
+        // 3. Fixed Age Input: Removed duplicate 'int' declaration & added proper loop
+        do {
+            System.out.print("Enter your age: ");
+            if (scanner.hasNextInt()) {
+                age = scanner.nextInt();
+                if (age <= 0) {
+                    System.out.println("Invalid age. Please enter a positive number.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.next(); // Clear invalid input
+            }
+        } while (age <= 0);
+        
+        // 4. Fixed HCI Input: Changed nextInt() to nextDouble() to match variable type
+        do {
+            System.out.print("Enter score in HCI: ");
+            if (scanner.hasNextDouble()) {
+                HCI = scanner.nextDouble();
+                if (HCI < 0 || HCI > 100) {
+                    System.out.println("Invalid score. Must be between 0 and 100.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.next();
+                HCI = -1; // Force loop to repeat
+            }
+        } while (HCI < 0 || HCI > 100);
+        
+        // 5. Fixed CC103 Input
+        do {
+            System.out.print("Enter score in CC103: ");
+            if (scanner.hasNextDouble()) {
+                CC103 = scanner.nextDouble();
+                if (CC103 < 0 || CC103 > 100) {
+                    System.out.println("Invalid score. Must be between 0 and 100.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.next();
+                CC103 = -1;
+            }
+        } while (CC103 < 0 || CC103 > 100);
+        
+        // 6. Fixed NET2 Input
+        do {
+            System.out.print("Enter score in NET2: ");
+            if (scanner.hasNextDouble()) {
+                NET2 = scanner.nextDouble();
+                if (NET2 < 0 || NET2 > 100) {
+                    System.out.println("Invalid score. Must be between 0 and 100.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.next();
+                NET2 = -1;
+            }
+        } while (NET2 < 0 || NET2 > 100);
+        
+        // Calculations
+        total = HCI + CC103 + NET2;
+        average = total / 3;
+        
+        // Output Results
+        System.out.println("--------------------");
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("HCI: " + HCI);
+        System.out.println("CC103: " + CC103);
+        System.out.println("NET2: " + NET2);
+        System.out.printf("Average: %.2f\n", average);
+        
+        // 7. Dynamic Pass/Fail Status (Assuming 75 is passing)
+        if (average >= 75) {
+            System.out.println("Status: Pass");
+        } else {
+            System.out.println("Status: Fail");
+        }
+        
+        scanner.close();
+    }
+}
